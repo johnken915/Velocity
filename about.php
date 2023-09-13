@@ -1,0 +1,360 @@
+<?php 
+
+session_start();
+
+	include("connection.php");
+	include("functions.php");
+
+
+	if($_SERVER['REQUEST_METHOD'] == "POST")
+	{
+		//something was posted
+		$user_name = $_POST['user_name'];
+		$password = $_POST['password'];
+
+		if(!empty($user_name) && !empty($password))
+		{
+
+			//read from database
+			$query = "select * from users where user_name = '$user_name' limit 1";
+			$result = mysqli_query($con, $query);
+
+			if($result)
+			{
+				if($result && mysqli_num_rows($result) > 0)
+				{
+
+					$user_data = mysqli_fetch_assoc($result);
+					
+					if($user_data['password'] === $password)
+					{
+
+						$_SESSION['user_id'] = $user_data['user_id'];
+                        $_SESSION['status'] = "Welcome.";
+						header("Location: index.php");
+						die;
+					}
+                    else{
+                        echo '<script type="text/javascript">/'.'/ <![CDATA[
+                            window.onload = function(){
+                              alert("Wrong password");
+                            }
+                          /'.'/ ]]>
+                          </script>';
+				    }
+                } 
+                else {
+                    echo '<script type="text/javascript">/'.'/ <![CDATA[
+                        window.onload = function(){
+                          alert("Email does not exist");
+                        }
+                      /'.'/ ]]>
+                      </script>';
+                }
+            }
+		}
+	}
+
+    ?>
+
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Velocity</title>
+        <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"/>
+        <link rel="stylesheet" href="style1.css">
+    </head>
+    <body>
+        <section id="header">
+            <a href="#"><img src="img/logo.png" class="logo" alt=""></a>
+            
+            <div>
+                <ul id="navbar">
+                    <li><a href="Index.php">Home</a></li>
+                    <li><a href="shop.php">Shop</a></li>
+                    <li><a class="active" href="about.php">About</a></li>
+                    <li><a href="contact.php">Contact</a></li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="logout.php" id="button1">Logout <br></a>
+                    </li>
+                    <li><a href="cart.html"><i class="fa-regular fa-bag-shopping"></i></a></li>
+                </ul>
+            </div>
+
+            <div id="mobile">
+                <a href="cart.html"><i class="fa-regular fa-bag-shopping"></i></a>
+                <i id="bar" class="fas fa-outdent"></i>
+            </div>
+        </section>
+
+        <section id="hero">
+            <div class="slider">
+                <img src="img/hero4.png" alt="Image 1">
+                <img src="img/hero1.PNG" alt="Image 2">
+                <img src="img/hero2.PNG" alt="Image 3">
+                <img src="img/hero3.PNG" alt="Image 4">
+              </div>
+        </section>
+
+        <br><br><br>
+<!-- Cards -->
+<div class="ex-cards-5 pt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 mt-5">
+                
+                <!-- Card-->
+                <div class="card">
+                    <div class="card-image"><img class="img-fluid" src="img/team/Angeles.PNG" alt="alternative"></div>
+                    <div class="card-body">
+                        <p class="name">John Ken Angeles</p>
+                        <p class="job-title">Front-End Web Developer</p>
+                    </div>
+                    <div class="social-icons">
+                        <span class="fa-stack">
+                            <a href="#your-link">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-facebook-f fa-stack-1x"></i>
+                            </a>
+                        </span>
+                        <span class="fa-stack">
+                            <a href="#your-link">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-instagram fa-stack-1x"></i>
+                            </a>
+                        </span>
+                    </div> <!-- end of social-icons -->
+                </div> <!-- end of card -->
+                <!-- end of card -->
+<br><br>
+                <!-- Card-->
+                <div class="card">
+                    <div class="card-image"><img class="img-fluid" src="img/team/Vergel De Dios.PNG" alt="alternative"></div>
+                    <div class="card-body">
+                        <p class="name">Jandrue Avery Vergel De Dios</p>
+                        <p class="job-title">Back-end Web Developer</p>
+                    </div>
+                    <div class="social-icons">
+                        <span class="fa-stack">
+                            <a href="#your-link">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-facebook-f fa-stack-1x"></i>
+                            </a>
+                        </span>
+                        <span class="fa-stack">
+                            <a href="#your-link">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-instagram fa-stack-1x"></i>
+                            </a>
+                        </span>
+                    </div> <!-- end of social-icons -->
+                </div> <!-- end of card -->
+                <!-- end of card -->
+
+                <br><br>
+                <!-- Card-->
+                <div class="card">
+                    <div class="card-image"><img class="img-fluid" src="img/team/Tai.PNG" alt="alternative"></div>
+                    <div class="card-body">
+                        <p class="name">Jhaevien Tai</p>
+                        <p class="job-title">Database</p>
+                    </div>
+                    <div class="social-icons">
+                        <span class="fa-stack">
+                            <a href="#your-link">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-facebook-f fa-stack-1x"></i>
+                            </a>
+                        </span>
+                        <span class="fa-stack">
+                            <a href="#your-link">
+                                <i class="fas fa-circle fa-stack-2x"></i>
+                                <i class="fab fa-instagram fa-stack-1x"></i>
+                            </a>
+                        </span>
+                    </div> <!-- end of social-icons -->
+                </div> <!-- end of card -->
+                <!-- end of card -->
+
+
+
+               
+
+
+            </div> <!-- end of col -->
+        </div> <!-- end of row -->
+    </div> <!-- end of container -->
+</div> <!-- end of ex-cards-5 -->
+<!-- end of cards -->
+        <br>
+        <section id="about">
+            <br>
+            <p class="about-p">Welcome to Velocity Ph, your premier destination for all things tech. As a team of dedicated tech enthusiasts, we understand the importance of staying connected and embracing the latest advancements in the digital age. That's why we have curated a diverse collection of gadgets, electronics, and accessories to cater to your needs and elevate your lifestyle.</p>
+            <br>
+            <p class="about-p">Our extensive product range spans across various categories, including smartphones, laptops, smartwatches, audio devices, and much more. We meticulously select each item, ensuring that they meet our stringent standards of quality and innovation. Whether you're a tech-savvy professional, a gaming aficionado, or simply someone who appreciates the convenience of cutting-edge gadgets, we have something for everyone.</p>
+            <br>
+            <p class="about-p">At Velocity Ph, customer satisfaction is our top priority. We strive to provide exceptional customer service, ensuring that your online shopping experience is seamless and enjoyable. With our fast shipping and secure payment options, you can rest assured that your order will arrive promptly and securely. Our dedicated team is always available to assist you with any inquiries or concerns, as we believe in building strong relationships with our customers based on trust and reliability.</p>
+            <br>
+        </section>
+
+          <!-- Login -->
+       <div class="popup">
+        <div class="popup-content">
+            <form method="POST" action="loginconnect.php">
+                <img src="img/close.png" alt="Close" class="close">
+                <br>
+                <h3>VELOCITY</h3>
+                <div class="text_field1">
+
+                    <input type="text" name="email" required>
+                    <label>Email</label>
+                </div>
+
+                <div class="text_field1">
+                    <input type="password" name="pass" required>
+                    <label>Password</label>
+                </div>
+                <!--<input type="text" placeholder="Username">
+                <input type="password" placeholder="Password">-->
+                <input type="button" name="login" value="Login">
+                <p id="register">Dont have an account? <a id="register">Register now</a></p>
+            </form>
+        </div>
+    </div>
+
+    <!-- Register -->
+    <div class="popup1">
+        <div class="popup1-content">
+            <form method="POST" action="loginconnect.php">
+                <img src="img/close.png" alt="Close" class="close1">
+                <br>
+
+                <h3>VELOCITY</h3>
+                                    <div class="text_field">
+                    <input type="text" name="Fname" required>
+                    <label>First Name</label>
+                </div>
+
+                <div class="text_field">
+                    <input type="text" name="LName" required>
+                    <label>Last Name</label>
+                </div>
+
+                <div class="text_field">
+                    <input type="text" name="Age" required>
+                    <label>Age</label>
+                </div>
+
+                <div class="text_field">
+                    <input type="int" name="Num" required>
+                    <label>Contact Number</label>
+                </div>
+
+                <div class="text_field">
+                    <input type="text" name="email" required>
+                    <label>Email</label>
+                </div>
+
+                <div class="text_field">
+                    <input type="password" name="pass" required>
+                    <label>Password</label>
+                </div>
+
+                <div class="text_field">
+                    <input type="password" name="Cpass" required>
+                    <label>Confirm Password</label>
+                </div> <br>
+                <input type="button" name="Register" value="Register" class="submit">
+            </form>
+        </div>
+    </div>
+
+        <footer class="section-p1">
+            <div class="col">
+                <img class="logo" src="img/logo.png" alt="">
+                <h4>Contact</h4>
+                <p><strong>Address: </strong> Address</p>
+                <p><strong>Phone: </strong> Number</p>
+                <p><strong>Hours: </strong> time</p>
+                <div class="follow">
+                    <h4>Follow us</h4>
+                    <div class="icon">
+                        <i class="fab fa-facebook-f"></i>
+                        <i class="fab fa-twitter"></i>
+                        <i class="fab fa-instagram"></i>
+                        <i class="fab fa-pinterest"></i>
+                        <i class="fab fa-youtube"></i>
+                    </div>
+                </div>
+            </div>
+                <div class="col">
+                    <h4>About</h4>
+                    <a href="#">About Us</a>
+                    <a href="#">Delivery Information</a>
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms & Conditions</a>
+                    <a href="#">Contact Us</a>
+                </div>
+
+                <div class="col">
+                    <h4>My Account</h4>
+                    <a href="#">Sign In</a>
+                    <a href="#">View Cart</a>
+                    <a href="#">My Wishlist</a>
+                    <a href="#">Track My Order</a>
+                    <a href="#">Help</a>
+                </div>
+
+                <div class="col install">
+                    <h4>Install App</h4>
+                    <p>From App Store or Google Play</p>
+                    <div class="row">
+                        <img src="img/pay/app.jpg" alt="">
+                        <img src="img/pay/play.jpg" alt="">
+                    </div>
+                    <p>Secured Payment Gateways</p>
+                    <img src="img/pay/pay.png" alt="">
+                </div>
+
+                <div class="copyright">
+                    <p>@ 2020, Velocity</p>
+                </div>
+        </footer>
+
+
+
+
+
+        <script src="script.js"></script>
+        <script>
+
+            document.getElementById("button").addEventListener("click", function () {
+                document.querySelector(".popup").style.display = 'flex';
+            })
+
+            document.querySelector(".close").addEventListener("click", function () {
+                document.querySelector(".popup").style.display = 'none';
+            })
+
+            document.getElementById("register").addEventListener("click", function () {
+                document.querySelector(".popup1").style.display = 'flex';
+            })
+
+            document.querySelector(".close1").addEventListener("click", function () {
+                document.querySelector(".popup1").style.display = 'none';
+            })
+
+            document.querySelector(".submit").addEventListener("click", function () {
+                document.querySelector(".popup1").style.display = 'none';
+            })
+
+        </script>
+
+    </body>
+</html>
+
+<!--2:00:00-->
